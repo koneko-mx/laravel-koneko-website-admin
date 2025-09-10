@@ -1,0 +1,39 @@
+{
+    "name": "koneko/laravel-koneko-website-admin",
+    "description": "Web content management module for Laravel projects, integrated with Vuexy Admin and optimized for professional sites in Mexico.",
+    "keywords": [
+        "laravel", "cms", "website-admin", "vuexy", "koneko", "mexico", "admin-panel",
+        "seo", "gestión de contenidos", "multi-site", "erp"
+    ],
+    "type": "library",
+    "license": "BUSL-1.1-custom",
+    "require": {
+        "php": "^8.2",
+        "koneko/laravel-koneko-vuexy-admin": "dev-develop",
+        "laravel/framework": "^11.31"
+    },
+    "autoload": {
+        "psr-4": {
+            "Koneko\\KonekoWebsiteAdmin\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Koneko\\KonekoWebsiteAdmin\\Providers\\KonekoWebsiteAdminServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Arturo Corro Pacheco",
+            "email": "arturo@koneko.mx"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/koneko-mx/laravel-koneko-website-admin",
+        "issues": "https://github.com/koneko-mx/laravel-koneko-website-admin/issues"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

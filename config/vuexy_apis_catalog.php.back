@@ -1,0 +1,108 @@
+<?php
+
+// Este archivo **NO se registra como config**, es usado por
+
+return [
+
+    // ======================= GOOGLE =======================
+
+    'google_analytics' => [
+        'name'        => 'Google Analytics',
+        'slug'        => 'google_analytics',
+        'provider'    => ApiProvider::Google,
+        'auth_type'   => ApiAuthType::OAuth2,
+        'environment' => ApiEnvironment::Production,
+        'base_url'    => 'https://analytics.googleapis.com',
+        'scopes'      => ['https://www.googleapis.com/auth/analytics.readonly'],
+        'credentials' => [
+            'client_id'     => env('GOOGLE_ANALYTICS_CLIENT_ID'),
+            'client_secret' => env('GOOGLE_ANALYTICS_CLIENT_SECRET'),
+            'redirect_uri'  => env('GOOGLE_ANALYTICS_REDIRECT_URI', url('/oauth2/callback')),
+        ],
+    ],
+
+    'google_translate' => [
+        'name'        => 'Google Translate',
+        'slug'        => 'google_translate',
+        'provider'    => ApiProvider::Google,
+        'auth_type'   => ApiAuthType::ApiKey,
+        'environment' => ApiEnvironment::Production,
+        'base_url'    => 'https://translation.googleapis.com/language/translate/v2',
+        'credentials' => [
+            'api_key' => env('GOOGLE_TRANSLATE_API_KEY'),
+        ],
+    ],
+
+    'google_search_console' => [
+        'name'        => 'Google Search Console',
+        'slug'        => 'google_search_console',
+        'provider'    => ApiProvider::Google,
+        'auth_type'   => ApiAuthType::OAuth2,
+        'environment' => ApiEnvironment::Production,
+        'base_url'    => 'https://searchconsole.googleapis.com',
+        'scopes'      => ['https://www.googleapis.com/auth/webmasters.readonly'],
+        'credentials' => [
+            'client_id'     => env('GOOGLE_SEARCH_CLIENT_ID'),
+            'client_secret' => env('GOOGLE_SEARCH_CLIENT_SECRET'),
+            'redirect_uri'  => env('GOOGLE_SEARCH_REDIRECT_URI'),
+        ],
+    ],
+
+    'google_tag_manager' => [
+        'name'        => 'Google Tag Manager',
+        'slug'        => 'google_tag_manager',
+        'provider'    => ApiProvider::Google,
+        'auth_type'   => ApiAuthType::OAuth2,
+        'environment' => ApiEnvironment::Production,
+        'base_url'    => 'https://www.googleapis.com/tagmanager/v2',
+        'scopes'      => ['https://www.googleapis.com/auth/tagmanager.readonly'],
+        'credentials' => [
+            'client_id'     => env('GOOGLE_TAG_CLIENT_ID'),
+            'client_secret' => env('GOOGLE_TAG_CLIENT_SECRET'),
+            'redirect_uri'  => env('GOOGLE_TAG_REDIRECT_URI'),
+        ],
+    ],
+
+    // ======================= META / FACEBOOK =======================
+
+    'facebook_messenger' => [
+        'name'        => 'Facebook Messenger',
+        'slug'        => 'facebook_messenger',
+        'provider'    => ApiProvider::Facebook,
+        'auth_type'   => ApiAuthType::OAuth2,
+        'environment' => ApiEnvironment::Production,
+        'base_url'    => 'https://graph.facebook.com/v17.0',
+        'scopes'      => ['pages_messaging', 'pages_show_list'],
+        'credentials' => [
+            'app_id'       => env('FACEBOOK_APP_ID'),
+            'app_secret'   => env('FACEBOOK_APP_SECRET'),
+            'redirect_uri' => env('FACEBOOK_REDIRECT_URI'),
+        ],
+    ],
+
+    // ======================= X / TWITTER =======================
+
+    'twitter_api' => [
+        'name'        => 'Twitter API v2',
+        'slug'        => 'twitter_api',
+        'provider'    => ApiProvider::Twitter,
+        'auth_type'   => ApiAuthType::BearerToken,
+        'environment' => ApiEnvironment::Production,
+        'base_url'    => 'https://api.twitter.com/2',
+        'credentials' => [
+            'bearer_token' => env('TWITTER_BEARER_TOKEN'),
+        ],
+    ],
+
+    // ======================= TAWK.TO =======================
+
+    'tawk_to' => [
+        'name'        => 'Tawk.to Live Chat',
+        'slug'        => 'tawk_to',
+        'provider'    => ApiProvider::Custom,
+        'auth_type'   => ApiAuthType::None,
+        'environment' => ApiEnvironment::Production,
+        'base_url'    => 'https://embed.tawk.to',
+        'credentials' => [],
+    ],
+];

@@ -1,0 +1,1154 @@
+{
+    "module": "admin.website-admin",
+    "name": {
+        "es": "Administrador de Sitio Web",
+        "en": "Website Administrator"
+    },
+    "_meta": {
+        "description": {
+            "es": "Permisos para la gestión del sitio web",
+            "en": "Permissions for managing the website"
+        },
+        "icon": "ti ti-settings"
+    },
+    "priority": 200,
+    "groups": {
+        "website-settings": {
+            "name": {
+                "es": "Configuración del Sitio Web",
+                "en": "Website Settings"
+            },
+            "_meta": {
+                "description": {
+                    "es": "Permisos para ajustes generales y SEO del sitio web",
+                    "en": "Permissions for general settings and website SEO"
+                },
+                "icon": "ti ti-settings"
+            },
+            "priority": 100,
+            "sub_groups": {
+                "general": {
+                    "name": {
+                        "es": "Ajustes generales",
+                        "en": "General settings"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Personalización general del sitio web",
+                            "en": "General customization of the website"
+                        },
+                        "icon": "ti ti-settings"
+                    },
+                    "priority": 100,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración general del sitio",
+                                "en": "View general site settings"
+                            },
+                            "key": "settings.general.view"
+                        }
+                    ]
+                },
+                "social": {
+                    "name": {
+                        "es": "Redes sociales",
+                        "en": "Social media"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Gestión de enlaces a redes sociales",
+                            "en": "Social media link management"
+                        },
+                        "icon": "ti ti-share"
+                    },
+                    "priority": 200,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver enlaces sociales",
+                                "en": "View social links"
+                            },
+                            "key": "settings.social.view"
+                        }
+                    ]
+                },
+                "indexing": {
+                    "name": {
+                        "es": "Indexación",
+                        "en": "Indexing"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Control de visibilidad en buscadores",
+                            "en": "Control site visibility in search engines"
+                        },
+                        "icon": "ti ti-search"
+                    },
+                    "priority": 300,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de indexado",
+                                "en": "View indexing settings"
+                            },
+                            "key": "settings.indexing.view"
+                        }
+                    ]
+                },
+                "info": {
+                    "name": {
+                        "es": "Información de contacto",
+                        "en": "Contact information"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Datos de contacto y localización",
+                            "en": "Contact data and location"
+                        },
+                        "icon": "ti ti-device-mobile-message"
+                    },
+                    "priority": 400,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver información de contacto",
+                                "en": "View contact information"
+                            },
+                            "key": "contact.info.view"
+                        }
+                    ]
+                },
+                "form": {
+                    "name": {
+                        "es": "Formulario de contacto",
+                        "en": "Contact form"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Gestión del formulario de contacto",
+                            "en": "Contact form configuration"
+                        },
+                        "icon": "ti ti-mail-cog"
+                    },
+                    "priority": 500,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver formulario de contacto",
+                                "en": "View contact form"
+                            },
+                            "key": "contact.form.view"
+                        }
+                    ]
+                },
+                "messenger": {
+                    "name": {
+                        "es": "Facebook Messenger",
+                        "en": "Facebook Messenger"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Activa el chat de Messenger en tu sitio.",
+                            "en": "Activate Messenger chat on your site."
+                        },
+                        "icon": "ti ti-brand-messenger"
+                    },
+                    "priority": 600,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Messenger",
+                                "en": "View Messenger configuration"
+                            },
+                            "key": "comunication.messenger.view"
+                        }
+                    ]
+                },
+                "whatsapp": {
+                    "name": {
+                        "es": "WhatsApp Chat",
+                        "en": "WhatsApp Chat"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Integra un botón de chat directo con WhatsApp.",
+                            "en": "Integrate a WhatsApp direct chat button."
+                        },
+                        "icon": "ti ti-brand-whatsapp"
+                    },
+                    "priority": 700,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de WhatsApp",
+                                "en": "View WhatsApp configuration"
+                            },
+                            "key": "comunication.whatsapp.view"
+                        }
+                    ]
+                },
+                "tawk-to": {
+                    "name": {
+                        "es": "Tawk.to",
+                        "en": "Tawk.to"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Agrega soporte en vivo con Tawk.to.",
+                            "en": "Add live support with Tawk.to."
+                        },
+                        "icon": "ti ti-message-dots"
+                    },
+                    "priority": 800,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Tawk.to",
+                                "en": "View Tawk.to configuration"
+                            },
+                            "key": "comunication.tawk-to.view"
+                        }
+                    ]
+                },
+                "twitter": {
+                    "name": {
+                        "es": "Twitter API",
+                        "en": "Twitter API"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Configura la integración con Twitter/X.",
+                            "en": "Configure integration with Twitter/X."
+                        },
+                        "icon": "ti ti-brand-x"
+                    },
+                    "priority": 900,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Twitter",
+                                "en": "View Twitter configuration"
+                            },
+                            "key": "comunication.twitter.view"
+                        }
+                    ]
+                },
+                "google-translate": {
+                    "name": {
+                        "es": "Google Translate",
+                        "en": "Google Translate"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Activa la traducción automática con Google Translate.",
+                            "en": "Enable automatic translation using Google Translate."
+                        },
+                        "icon": "ti ti-language"
+                    },
+                    "priority": 1000,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Google Translate",
+                                "en": "View Google Translate settings"
+                            },
+                            "key": "translate.google-translate.view"
+                        },
+                        {
+                            "action": "update",
+                            "label": {
+                                "es": "Editar configuración de Google Translate",
+                                "en": "Update Google Translate settings"
+                            },
+                            "key": "translate.google-translate.update"
+                        }
+                    ]
+                }
+            }
+        },
+        "website-cms": {
+            "name": {
+                "es": "Gestor de Contenidos",
+                "en": "Content Manager"
+            },
+            "_meta": {
+                "description": {
+                    "es": "Administrador de contenidos dinámicos del sitio web.",
+                    "en": "Administrator of dynamic website content."
+                },
+                "icon": "ti ti-layout-grid-add"
+            },
+            "priority": 200,
+            "sub_groups": {
+                "menus": {
+                    "name": {
+                        "es": "Menús del sitio",
+                        "en": "Site Menus"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Estructura de navegación y menús.",
+                            "en": "Navigation structure and menus."
+                        },
+                        "icon": "ti ti-hierarchy-3"
+                    },
+                    "priority": 100,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver menús del sitio",
+                                "en": "View site menus"
+                            },
+                            "key": "cms.menus.view"
+                        },
+                        {
+                            "action": "update",
+                            "label": {
+                                "es": "Editar menús del sitio",
+                                "en": "Edit site menus"
+                            },
+                            "key": "cms.menus.update"
+                        }
+                    ]
+                },
+                "seo": {
+                    "name": {
+                        "es": "Perfil SEO",
+                        "en": "SEO Profile"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Configuración de parámetros SEO.",
+                            "en": "SEO parameter configuration."
+                        },
+                        "icon": "ti ti-settings"
+                    },
+                    "priority": 200,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver perfil SEO",
+                                "en": "View SEO profile"
+                            },
+                            "key": "cms.seo.view"
+                        },
+                        {
+                            "action": "update",
+                            "label": {
+                                "es": "Editar perfil SEO",
+                                "en": "Edit SEO profile"
+                            },
+                            "key": "cms.seo.update"
+                        }
+                    ]
+                },
+                "contents": {
+                    "name": {
+                        "es": "Contenidos dinámicos",
+                        "en": "Dynamic Contents"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Páginas, bloques y parciales Blade.",
+                            "en": "Pages, blocks, and Blade partials."
+                        },
+                        "icon": "ti ti-file-text"
+                    },
+                    "priority": 300,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver contenidos",
+                                "en": "View contents"
+                            },
+                            "key": "cms.contents.view"
+                        },
+                        {
+                            "action": "create",
+                            "label": {
+                                "es": "Crear contenido",
+                                "en": "Create content"
+                            },
+                            "key": "cms.contents.create"
+                        },
+                        {
+                            "action": "update",
+                            "label": {
+                                "es": "Editar contenido",
+                                "en": "Edit content"
+                            },
+                            "key": "cms.contents.update"
+                        },
+                        {
+                            "action": "delete",
+                            "label": {
+                                "es": "Eliminar contenido",
+                                "en": "Delete content"
+                            },
+                            "key": "cms.contents.delete"
+                        }
+                    ]
+                },
+                "versions": {
+                    "name": {
+                        "es": "Versiones de contenido",
+                        "en": "Content Versions"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Gestión de versiones y restauraciones.",
+                            "en": "Version and restoration management."
+                        },
+                        "icon": "ti ti-clock-edit"
+                    },
+                    "priority": 400,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver versiones de contenido",
+                                "en": "View content versions"
+                            },
+                            "key": "cms.versions.view"
+                        },
+                        {
+                            "action": "reopen",
+                            "label": {
+                                "es": "Restaurar versión",
+                                "en": "Restore version"
+                            },
+                            "key": "cms.versions.reopen"
+                        }
+                    ]
+                },
+                "templates": {
+                    "name": {
+                        "es": "Plantillas disponibles",
+                        "en": "Available Templates"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Plantillas base y organización.",
+                            "en": "Base templates and organization."
+                        },
+                        "icon": "ti ti-template"
+                    },
+                    "priority": 500,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver plantillas",
+                                "en": "View templates"
+                            },
+                            "key": "cms.templates.view"
+                        },
+                        {
+                            "action": "update",
+                            "label": {
+                                "es": "Editar plantillas",
+                                "en": "Edit templates"
+                            },
+                            "key": "cms.templates.update"
+                        }
+                    ]
+                },
+                "cache": {
+                    "name": {
+                        "es": "Caché HTML renderizado",
+                        "en": "Rendered HTML Cache"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Visualiza y limpia la caché de HTML completo del sitio web.",
+                            "en": "View and clear full-page HTML cache for the website."
+                        },
+                        "icon": "ti ti-file-type-html"
+                    },
+                    "priority": 600,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver caché HTML",
+                                "en": "View HTML Cache"
+                            },
+                            "key": "website.cache.fullpage.view"
+                        },
+                        {
+                            "action": "clean",
+                            "label": {
+                                "es": "Limpiar caché HTML",
+                                "en": "Clear HTML Cache"
+                            },
+                            "key": "website.cache.fullpage.clean"
+                        }
+                    ]
+                },
+                "signed-previews": {
+                    "name": {
+                        "es": "Previsualizaciones firmadas",
+                        "en": "Signed Previews"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "URLs de vista previa y control de firma temporal.",
+                            "en": "Preview URLs and temporary signature control."
+                        },
+                        "icon": "ti ti-lock-access"
+                    },
+                    "priority": 700,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver previsualizaciones firmadas",
+                                "en": "View signed previews"
+                            },
+                            "key": "website.cache.signed-previews.view"
+                        },
+                        {
+                            "action": "clean",
+                            "label": {
+                                "es": "Limpiar previsualizaciones firmadas",
+                                "en": "Clear signed previews"
+                            },
+                            "key": "website.cache.signed-previews.clean"
+                        }
+                    ]
+                }
+            }
+        },
+        "website-content": {
+            "name": {
+                "es": "Contenido",
+                "en": "Content"
+            },
+            "_meta": {
+                "description": {
+                    "es": "Maneja contenido informativo y visual.",
+                    "en": "Manage informational and visual content."
+                },
+                "icon": "ti ti-hierarchy"
+            },
+            "priority": 300,
+            "sub_groups": {
+                "faq": {
+                    "name": {
+                        "es": "Preguntas frecuentes",
+                        "en": "Frequently Asked Questions"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Administra las preguntas frecuentes del sitio.",
+                            "en": "Manage the site's FAQ content."
+                        },
+                        "icon": "ti ti-bubble-text"
+                    },
+                    "priority": 100,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver preguntas frecuentes",
+                                "en": "View FAQ"
+                            },
+                            "key": "content.faq.view"
+                        },
+                        {
+                            "action": "create",
+                            "label": {
+                                "es": "Crear preguntas frecuentes",
+                                "en": "Create FAQ"
+                            },
+                            "key": "content.faq.create"
+                        },
+                        {
+                            "action": "update",
+                            "label": {
+                                "es": "Editar preguntas frecuentes",
+                                "en": "Edit FAQ"
+                            },
+                            "key": "content.faq.update"
+                        },
+                        {
+                            "action": "delete",
+                            "label": {
+                                "es": "Eliminar preguntas frecuentes",
+                                "en": "Delete FAQ"
+                            },
+                            "key": "content.faq.delete"
+                        }
+                    ]
+                },
+                "gallery": {
+                    "name": {
+                        "es": "Galería de imágenes",
+                        "en": "Image Gallery"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Agrega y organiza tus imágenes.",
+                            "en": "Add and organize your images."
+                        },
+                        "icon": "ti ti-photo"
+                    },
+                    "priority": 200,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver galería de imágenes",
+                                "en": "View image gallery"
+                            },
+                            "key": "content.gallery.view"
+                        },
+                        {
+                            "action": "create",
+                            "label": {
+                                "es": "Subir imagen",
+                                "en": "Upload image"
+                            },
+                            "key": "content.gallery.create"
+                        },
+                        {
+                            "action": "delete",
+                            "label": {
+                                "es": "Eliminar imagen",
+                                "en": "Delete image"
+                            },
+                            "key": "content.gallery.delete"
+                        }
+                    ]
+                },
+                "legal": {
+                    "name": {
+                        "es": "Avisos legales",
+                        "en": "Legal Notices"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Documentos como Términos, Aviso de Privacidad, etc.",
+                            "en": "Documents such as Terms of Service, Privacy Policy, etc."
+                        },
+                        "icon": "ti ti-file-text-shield"
+                    },
+                    "priority": 300,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver avisos legales",
+                                "en": "View legal notices"
+                            },
+                            "key": "content.legal.view"
+                        },
+                        {
+                            "action": "update",
+                            "label": {
+                                "es": "Editar avisos legales",
+                                "en": "Edit legal notices"
+                            },
+                            "key": "content.legal.update"
+                        }
+                    ]
+                }
+            }
+        },
+        "website-analytics": {
+            "name": {
+                "es": "Analítica y seguimiento",
+                "en": "Analytics and Tracking"
+            },
+            "_meta": {
+                "description": {
+                    "es": "Permisos para gestionar integraciones de analítica y seguimiento.",
+                    "en": "Permissions to manage analytics and tracking integrations."
+                },
+                "icon": "ti ti-device-analytics"
+            },
+            "priority": 400,
+            "sub_groups": {
+                "google-analytics": {
+                    "name": {
+                        "es": "Google Analytics",
+                        "en": "Google Analytics"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Integra tu cuenta de Google Analytics.",
+                            "en": "Integrate your Google Analytics account."
+                        },
+                        "icon": "ti ti-chart-scatter-3d"
+                    },
+                    "priority": 100,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Google Analytics",
+                                "en": "View Google Analytics configuration"
+                            },
+                            "key": "analytics.google-analytics.view"
+                        }
+                    ]
+                },
+                "google-tags": {
+                    "name": {
+                        "es": "Google Tags",
+                        "en": "Google Tags"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Administra etiquetas de Google Tag Manager.",
+                            "en": "Manage Google Tag Manager tags."
+                        },
+                        "icon": "ti ti-tags"
+                    },
+                    "priority": 200,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Google Tags",
+                                "en": "View Google Tags configuration"
+                            },
+                            "key": "analytics.google-tags.view"
+                        }
+                    ]
+                },
+                "google-search-console": {
+                    "name": {
+                        "es": "Google Search Console",
+                        "en": "Google Search Console"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Verifica y gestiona tu sitio con Search Console.",
+                            "en": "Verify and manage your site with Search Console."
+                        },
+                        "icon": "ti ti-search"
+                    },
+                    "priority": 300,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Search Console",
+                                "en": "View Search Console configuration"
+                            },
+                            "key": "analytics.google-search-console.view"
+                        }
+                    ]
+                },
+                "pixel-meta": {
+                    "name": {
+                        "es": "Pixel Meta",
+                        "en": "Meta Pixel"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Integra el pixel de Meta (Facebook Ads).",
+                            "en": "Integrate Meta Pixel (Facebook Ads)."
+                        },
+                        "icon": "ti ti-device-analytics"
+                    },
+                    "priority": 400,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Meta Pixel",
+                                "en": "View Meta Pixel configuration"
+                            },
+                            "key": "analytics.pixel-meta.view"
+                        }
+                    ]
+                }
+            }
+        },
+        "website-seo-tools": {
+            "name": {
+                "es": "Herramientas SEO",
+                "en": "SEO Tools"
+            },
+            "_meta": {
+                "description": {
+                    "es": "Permisos para gestionar herramientas y metadatos SEO.",
+                    "en": "Permissions to manage SEO tools and metadata."
+                },
+                "icon": "ti ti-code-dots"
+            },
+            "priority": 500,
+            "sub_groups": {
+                "sitemap": {
+                    "name": {
+                        "es": "Mapa del sitio",
+                        "en": "Sitemap"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Genera y publica el sitemap.xml.",
+                            "en": "Generate and publish sitemap.xml."
+                        },
+                        "icon": "ti ti-hierarchy"
+                    },
+                    "priority": 100,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Sitemap",
+                                "en": "View Sitemap configuration"
+                            },
+                            "key": "seo-tools.sitemap.view"
+                        }
+                    ]
+                },
+                "jsonld": {
+                    "name": {
+                        "es": "Google JSON-LD",
+                        "en": "Google JSON-LD"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Configura el esquema estructurado para Google.",
+                            "en": "Configure structured schema for Google."
+                        },
+                        "icon": "ti ti-code-dots"
+                    },
+                    "priority": 200,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de JSON-LD",
+                                "en": "View JSON-LD configuration"
+                            },
+                            "key": "seo-tools.jsonld.view"
+                        }
+                    ]
+                },
+                "robots": {
+                    "name": {
+                        "es": "Robots.txt",
+                        "en": "Robots.txt"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Controla qué partes del sitio pueden ser indexadas.",
+                            "en": "Control which parts of the site can be indexed."
+                        },
+                        "icon": "ti ti-code"
+                    },
+                    "priority": 300,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Robots.txt",
+                                "en": "View Robots.txt configuration"
+                            },
+                            "key": "seo-tools.robots.view"
+                        }
+                    ]
+                },
+                "manifest": {
+                    "name": {
+                        "es": "manifest.json",
+                        "en": "manifest.json"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Configura la compatibilidad como PWA.",
+                            "en": "Configure PWA compatibility."
+                        },
+                        "icon": "ti ti-file-code"
+                    },
+                    "priority": 400,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de manifest.json",
+                                "en": "View manifest.json configuration"
+                            },
+                            "key": "seo-tools.manifest.view"
+                        }
+                    ]
+                },
+                "canonical": {
+                    "name": {
+                        "es": "Canonical URLs",
+                        "en": "Canonical URLs"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Evita duplicidad de URLs con etiquetas canónicas.",
+                            "en": "Avoid URL duplication with canonical tags."
+                        },
+                        "icon": "ti ti-link"
+                    },
+                    "priority": 500,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Canonical",
+                                "en": "View Canonical configuration"
+                            },
+                            "key": "seo-tools.canonical.view"
+                        }
+                    ]
+                },
+                "social-cards": {
+                    "name": {
+                        "es": "Preview Social Cards",
+                        "en": "Preview Social Cards"
+                    },
+                    "_meta": {
+                        "description": {
+                            "es": "Define títulos, imágenes y previews sociales.",
+                            "en": "Define titles, images and social previews."
+                        },
+                        "icon": "ti ti-brand-facebook"
+                    },
+                    "priority": 600,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver configuración de Social Cards",
+                                "en": "View Social Cards configuration"
+                            },
+                            "key": "seo-tools.social-cards.view"
+                        }
+                    ]
+                }
+            }
+        },
+        "website-blog": {
+            "name": {
+                "es": "Blog",
+                "en": "Blog"
+            },
+            "_meta": {
+                "description": {
+                    "es": "Publica, edita y organiza artículos, categorías y comentarios de tu blog.",
+                    "en": "Publish, edit, and organize blog articles, categories, and comments."
+                },
+                "icon": "ti ti-news",
+                "after_to": "Sitio web"
+            },
+            "priority": 600,
+            "sub_groups": {
+                "categories": {
+                    "name": {
+                        "es": "Categorías",
+                        "en": "Categories"
+                    },
+                    "_meta": {
+                        "icon": "ti ti-category"
+                    },
+                    "priority": 100,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver categorías",
+                                "en": "View categories"
+                            },
+                            "key": "blog.categories.view"
+                        },
+                        {
+                            "action": "create",
+                            "label": {
+                                "es": "Crear categoría",
+                                "en": "Create category"
+                            },
+                            "key": "blog.categories.create"
+                        },
+                        {
+                            "action": "update",
+                            "label": {
+                                "es": "Editar categoría",
+                                "en": "Edit category"
+                            },
+                            "key": "blog.categories.update"
+                        },
+                        {
+                            "action": "delete",
+                            "label": {
+                                "es": "Eliminar categoría",
+                                "en": "Delete category"
+                            },
+                            "key": "blog.categories.delete"
+                        }
+                    ]
+                },
+                "tags": {
+                    "name": {
+                        "es": "Etiquetas",
+                        "en": "Tags"
+                    },
+                    "_meta": {
+                        "icon": "ti ti-tags"
+                    },
+                    "priority": 200,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver etiquetas",
+                                "en": "View tags"
+                            },
+                            "key": "blog.tags.view"
+                        },
+                        {
+                            "action": "create",
+                            "label": {
+                                "es": "Crear etiqueta",
+                                "en": "Create tag"
+                            },
+                            "key": "blog.tags.create"
+                        },
+                        {
+                            "action": "update",
+                            "label": {
+                                "es": "Editar etiqueta",
+                                "en": "Edit tag"
+                            },
+                            "key": "blog.tags.update"
+                        },
+                        {
+                            "action": "delete",
+                            "label": {
+                                "es": "Eliminar etiqueta",
+                                "en": "Delete tag"
+                            },
+                            "key": "blog.tags.delete"
+                        }
+                    ]
+                },
+                "articles": {
+                    "name": {
+                        "es": "Artículos",
+                        "en": "Articles"
+                    },
+                    "_meta": {
+                        "icon": "ti ti-news"
+                    },
+                    "priority": 300,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver artículos",
+                                "en": "View articles"
+                            },
+                            "key": "blog.articles.view"
+                        },
+                        {
+                            "action": "create",
+                            "label": {
+                                "es": "Crear artículo",
+                                "en": "Create article"
+                            },
+                            "key": "blog.articles.create"
+                        },
+                        {
+                            "action": "update",
+                            "label": {
+                                "es": "Editar artículo",
+                                "en": "Edit article"
+                            },
+                            "key": "blog.articles.update"
+                        },
+                        {
+                            "action": "delete",
+                            "label": {
+                                "es": "Eliminar artículo",
+                                "en": "Delete article"
+                            },
+                            "key": "blog.articles.delete"
+                        },
+                        {
+                            "action": "publish",
+                            "label": {
+                                "es": "Publicar artículo",
+                                "en": "Publish article"
+                            },
+                            "key": "blog.articles.publish"
+                        },
+                        {
+                            "action": "archive",
+                            "label": {
+                                "es": "Archivar artículo",
+                                "en": "Archive article"
+                            },
+                            "key": "blog.articles.archive"
+                        }
+                    ]
+                },
+                "comments": {
+                    "name": {
+                        "es": "Comentarios",
+                        "en": "Comments"
+                    },
+                    "_meta": {
+                        "icon": "ti ti-message"
+                    },
+                    "priority": 400,
+                    "permissions": [
+                        {
+                            "action": "view",
+                            "label": {
+                                "es": "Ver comentarios",
+                                "en": "View comments"
+                            },
+                            "key": "blog.comments.view"
+                        },
+                        {
+                            "action": "delete",
+                            "label": {
+                                "es": "Eliminar comentario",
+                                "en": "Delete comment"
+                            },
+                            "key": "blog.comments.delete"
+                        },
+                        {
+                            "action": "approve",
+                            "label": {
+                                "es": "Aprobar comentario",
+                                "en": "Approve comment"
+                            },
+                            "key": "blog.comments.approve"
+                        },
+                        {
+                            "action": "cancel",
+                            "label": {
+                                "es": "Rechazar comentario",
+                                "en": "Reject comment"
+                            },
+                            "key": "blog.comments.cancel"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
