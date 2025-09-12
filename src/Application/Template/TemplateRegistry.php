@@ -37,7 +37,7 @@ final class TemplateRegistry
                     $meta['thumbnail_abs'] = is_file($abs) ? $abs : null;
                 }
 
-                $key = "{$pkgId}:{$tplId}";
+                $key = "{$pkgId}::{$tplId}";
                 $flat[$key] = [
                     'key'          => $key,
                     'package'      => $pkgId,
@@ -84,12 +84,12 @@ final class TemplateRegistry
 
     public static function key(string $package, string $layout): string
     {
-        return "{$package}:{$layout}";
+        return "{$package}::{$layout}";
     }
 
     public static function split(string $composite): array
     {
-        return explode(':', $composite, 2);
+        return explode('::', $composite, 2);
     }
 
     public static function has(string $package, string $layout): bool
@@ -109,7 +109,7 @@ final class TemplateRegistry
 
     /* ===== UI: opciones agrupadas (optgroup nativo) ===== */
 
-    /** Estructura: ['pkg_id' => ['label' => 'Nombre', 'items' => ['pkg:tpl' => 'Label', ...]], ...] */
+    /** Estructura: ['pkg_id' => ['label' => 'Nombre', 'items' => ['pkg::tpl' => 'Label', ...]], ...] */
     public static function groupedOptions(?string $package = null, ?array $tags = null): array
     {
         $groups = self::grouped();
@@ -141,7 +141,7 @@ final class TemplateRegistry
     /**
      * Select2 grouped format:
      * [
-     *   ['text' => 'Porto', 'children' => [['id'=>'pkg:tpl','text'=>'Label'], ...]],
+     *   ['text' => 'Porto', 'children' => [['id'=>'pkg::tpl','text'=>'Label'], ...]],
      *   ...
      * ]
      */

@@ -637,7 +637,7 @@
                 },
                 "legal": {
                     "name": {
-                        "es": "Avisos legales",
+                        "es": "Legales y políticas",
                         "en": "Legal Notices"
                     },
                     "_meta": {
@@ -652,7 +652,7 @@
                         {
                             "action": "view",
                             "label": {
-                                "es": "Ver avisos legales",
+                                "es": "Ver Legales y políticas",
                                 "en": "View legal notices"
                             },
                             "key": "content.legal.view"
@@ -660,7 +660,7 @@
                         {
                             "action": "update",
                             "label": {
-                                "es": "Editar avisos legales",
+                                "es": "Editar Legales y políticas",
                                 "en": "Edit legal notices"
                             },
                             "key": "content.legal.update"

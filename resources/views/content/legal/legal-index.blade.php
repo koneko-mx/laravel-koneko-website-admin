@@ -1,6 +1,6 @@
 @extends('admin::layouts.vuexy.layoutMaster')
 
-@section('title', 'Avisos legales')
+@section('title', 'Legales y políticas')
 
 <!-- Vendor Styles -->
 @section('vendor-style')

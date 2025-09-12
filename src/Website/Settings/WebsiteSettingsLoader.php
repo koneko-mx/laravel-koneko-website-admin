@@ -7,7 +7,6 @@ namespace Koneko\KonekoWebsiteAdmin\Website\Settings;
 use Illuminate\Support\Facades\Storage;
 use Koneko\KonekoVuexyAdmin\Application\Cache\Manager\KonekoCacheManager;
 use Koneko\KonekoVuexyAdmin\Application\Settings\Manager\KonekoSettingManager;
-use Koneko\KonekoWebsiteAdmin\Application\Template\WebsiteImageHandler;
 use Koneko\KonekoWebsiteAdmin\Models\WebsiteSite;
 
 /**

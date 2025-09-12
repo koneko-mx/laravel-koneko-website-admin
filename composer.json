@@ -10,7 +10,9 @@
     "require": {
         "php": "^8.2",
         "koneko/laravel-koneko-vuexy-admin": "dev-develop",
-        "laravel/framework": "^11.31"
+        "koneko/laravel-koneko-layout-small-templates": "dev-develop",
+        "laravel/framework": "^11.31",
+        "spatie/laravel-markdown": "^2"
     },
     "autoload": {
         "psr-4": {

@@ -66,8 +66,8 @@ final class TemplateCard extends Component
         $c = $this->content;
 
         $this->template_mode = $c ? $c->template_mode->value : null;
-        $this->template      = ($p->package ?: '') . ':' . ($p->layout ?: '');
-        $this->template      = trim($this->template, ':');
+        $this->template      = ($p->package ?: '') . '::' . ($p->layout ?: '');
+        $this->template      = trim($this->template, '::');
         $this->theme_color   = $p->theme_color ?: $this->theme_color;
     }
 
@@ -77,12 +77,12 @@ final class TemplateCard extends Component
         $this->validate();
 
         // Validación estructural del template: "pkg:layout"
-        if (!str_contains($this->template, ':')) {
-            $this->addError('template', 'Formato inválido. Usa paquete:layout.');
+        if (!str_contains($this->template, '::')) {
+            $this->addError('template', 'Formato inválido. Usa paquete::layout.');
             return;
         }
 
-        [$package, $layout] = explode(':', $this->template, 2);
+        [$package, $layout] = explode('::', $this->template, 2);
         $package = trim($package);
         $layout  = trim($layout);
 

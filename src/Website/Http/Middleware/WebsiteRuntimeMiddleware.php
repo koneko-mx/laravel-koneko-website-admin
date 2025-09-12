@@ -29,6 +29,10 @@ final class WebsiteRuntimeMiddleware
 
         [$site, $content, $isPreview] = [$resolved['site'], $resolved['content'], $resolved['isPreview']];
 
+        if (!$content) {
+            throw new HttpException(404, 'Página no encontrado.');
+        }
+
         // Validaciones de acceso SOLO si no es preview
         if (!$isPreview && $content) {
             // estado

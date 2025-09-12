@@ -7,17 +7,14 @@ use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Chat\{ChatCard, What
 use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Contact\{ContactInfoCard, ContactFormCard};
 use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\General\{DescriptionCard, VisibilitySecurityCard, FaviconCard};
 use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Integrations\{GoogleAnalyticsCard, GoogleSearchConsoleCard, GoogleTagsCard, PixelMetaCard, TwitterApiCard};
-use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Locations\BranchesCard;
-use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Locations\LocationCard;
+use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Locations\{BranchesCard, LocationCard};
 use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Manager\SiteOffCanvasForm;
-use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Pages\PageOffCanvasForm;
-use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Pages\WebsitePagesTable;
+use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Pages\{PageOffCanvasForm, WebsitePagesTable};
 use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Seo\{LocaleCard, OgCard, SchemaOrgCard, TwitterCard};
 use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Social\SocialCard;
 use Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Template\{TemplateCard};
 use Koneko\KonekoWebsiteAdmin\Console\Commands\{SitemapGenerate, WebsiteCacheHelperCommand, WebsiteContentHelperCommand, WebsiteMenuHelperCommand, WebsiteSeoHelperCommand};
-use Koneko\KonekoWebsiteAdmin\Models\WebsiteContent;
-use Koneko\KonekoWebsiteAdmin\Models\WebsiteSite;
+use Koneko\KonekoWebsiteAdmin\Models\{WebsiteContent, WebsiteSite};
 use Koneko\KonekoWebsiteAdmin\Website\Http\Middleware\WebsiteRuntimeMiddleware;
 
 return [
@@ -57,8 +54,8 @@ return [
             'middleware' => ['web', 'auth', 'admin'],
             'paths' => [
                 'routes/koneko_website_admin.php',
-                //'routes/koneko_website_cms.php',
-                //'routes/koneko_website_blog.php',
+                'routes/koneko_website_cms.php',
+                'routes/koneko_website_blog.php',
             ],
         ],
         [
@@ -155,7 +152,7 @@ return [
             // Galería de imágenes
             'site.gallery-index' => GalleryIndex::class,
 
-            // Avisos legales
+            // Legales y políticas
             'site.legal-index'          => LegalIndex::class,
             'site.legal-offcanvas-form' => LegalOffCanvasForm::class,
 

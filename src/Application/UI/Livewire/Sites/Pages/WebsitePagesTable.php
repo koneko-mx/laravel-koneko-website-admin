@@ -6,6 +6,7 @@ namespace Koneko\KonekoWebsiteAdmin\Application\UI\Livewire\Sites\Pages;
 
 use Illuminate\Contracts\View\View;
 use Koneko\KonekoVuexyAdmin\Support\Livewire\Components\Table\AbstractTableComponent;
+use Koneko\KonekoWebsiteAdmin\Application\Enums\WebsiteContents\WebsiteContentStatus;
 use Koneko\KonekoWebsiteAdmin\Application\UX\ConfigBuilders\Pages\PagesTableConfigBuilder;
 use Koneko\KonekoWebsiteAdmin\Models\WebsiteSite;
 
@@ -24,7 +25,7 @@ class WebsitePagesTable extends AbstractTableComponent
     {
         parent::mount();
 
-        $this->statusOptions = \Koneko\KonekoWebsiteAdmin\Application\Enums\WebsiteContents\WebsiteContentStatus::optionsForForm();
+        $this->statusOptions = WebsiteContentStatus::optionsForForm();
     }
 
     public function render(): View

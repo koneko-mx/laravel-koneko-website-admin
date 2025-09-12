@@ -1,6 +1,6 @@
 <div>
     <x-vuexy-admin::form.form id="website-legal-notices-settings-card" class="form-custom-listener mb-4" wire:ignore.self>
-        <x-vuexy-admin::card.basic title="Avisos Legales" class="mb-2">
+        <x-vuexy-admin::card.basic title="Legales y políticas" class="mb-2">
             {{-- Selector de sección --}}
             <ul class="nav nav-pills" role="tablist">
                 @foreach($legalVars as $key => $section)

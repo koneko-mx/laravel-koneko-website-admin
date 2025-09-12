@@ -73,7 +73,7 @@ final class SiteContextResolver
         }
 
         $content = $contentQuery->first();
-        $content->status = 'published';
+        //$content->status = 'published';
 
         return compact('site','content','isPreview','slug');
     }

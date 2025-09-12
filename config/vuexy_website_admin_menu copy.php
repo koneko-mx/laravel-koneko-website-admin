@@ -201,7 +201,7 @@ return [
                         'can' => 'admin.website-admin.content.gallery.view',
                         'description' => 'Agrega y organiza tus imágenes.',
                     ],
-                    'Avisos legales' => [
+                    'Legales y políticas' => [
                         'icon' => 'ti ti-file-text-shield',
                         'route' => 'admin.website-admin.content.legal.index',
                         'can' => 'admin.website-admin.content.legal.view',
