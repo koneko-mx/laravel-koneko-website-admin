@@ -6,7 +6,8 @@ namespace Koneko\KonekoWebsiteAdmin\Website\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Auth, View};
+use Illuminate\Support\Facades\{Auth, Config, URL, View};
+use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Koneko\KonekoVuexyAdmin\Application\Cache\Manager\KonekoCacheManager;
 use Koneko\KonekoWebsiteAdmin\Website\Layout\Builders\WebsiteResponseBuilder;
@@ -32,6 +33,27 @@ final class WebsiteRuntimeMiddleware
         if (!$content) {
             throw new HttpException(404, 'Página no encontrado.');
         }
+
+
+        $host = trim((string) $site->domain);                 // p.ej. "agroform.test"
+        $host = rtrim($host, '/');
+
+        // Si tu modelo tiene un flag de HTTPS, úsalo; si no, toma el de la request
+        $scheme = $request->isSecure() ? 'https' : 'http';
+
+        // Si ya trae esquema, respétalo; si no, prepéndelo
+        $siteUrl = Str::startsWith($host, ['http://','https://'])
+            ? $host
+            : "{$scheme}://{$host}";
+
+        // --- ahora sí tus sets ---
+        Config::set('app.url', $siteUrl);
+        URL::forceRootUrl($siteUrl);
+        URL::forceScheme(parse_url($siteUrl, PHP_URL_SCHEME) ?: 'https');
+
+        Config::set('app.asset_url', $siteUrl);
+        Config::set('filesystems.disks.public.url', $siteUrl.'/storage');
+
 
         // Validaciones de acceso SOLO si no es preview
         if (!$isPreview && $content) {
