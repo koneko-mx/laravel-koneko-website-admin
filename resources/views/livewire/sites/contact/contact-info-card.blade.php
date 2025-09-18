@@ -56,7 +56,10 @@
     // Normaliza en blur (opcional)
     ['#phone_number', '#phone_number_2'].forEach((sel) => {
       const el = q(sel);
-      el?.addEventListener('blur', () => { el.value = normalizePhone(el.value); });
+      el?.addEventListener('blur', () => {
+        el.dispatchEvent(new Event('input',  { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+      });
     });
 
     // ====== Validador de extensión (incluye “requiere número”) ======

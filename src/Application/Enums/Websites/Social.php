@@ -85,6 +85,23 @@ enum Social: string
         };
     }
 
+    /** Color corporativo HEX de cada red */
+    public function color(): string
+    {
+        return match ($this) {
+            self::WHATSAPP  => '#25D366',
+            self::FACEBOOK  => '#1877F2',
+            self::INSTAGRAM => '#E4405F',
+            self::LINKEDIN  => '#0A66C2',
+            self::X_TWITTER => '#000000',   // X es negro
+            self::TIKTOK    => '#010101',
+            self::GOOGLE    => '#DB4437',
+            self::PINTEREST => '#E60023',
+            self::YOUTUBE   => '#FF0000',
+            self::VIMEO     => '#1AB7EA',
+        };
+    }
+
     /**
      * Normaliza un valor ingresado (URL o @handle) a URL final.
      *

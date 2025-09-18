@@ -67,38 +67,92 @@ final class ContactInfoCard extends Component
 
     public function save(): void
     {
-        // Normaliza teléfonos (mantén + y dígitos) y extensión (solo dígitos)
-        $this->phone_number      = $this->normalizePhone($this->phone_number);
-        $this->phone_number_ext  = $this->digitsOnly($this->phone_number_ext);
-        $this->phone_number_2    = $this->normalizePhone($this->phone_number_2);
-        $this->phone_number_2_ext= $this->digitsOnly($this->phone_number_2_ext);
-        $this->email             = strtolower(trim($this->email));
-        $this->working_hours        = trim($this->working_hours);
+        // Mantén lo escrito para UI
+        $display1 = trim($this->phone_number);
+        $display2 = trim($this->phone_number_2);
+
+        // Versión limpia para validar y construir tel:
+        $clean1 = $this->normalizePhone($display1); // deja solo + y dígitos
+        $clean2 = $this->normalizePhone($display2);
+        $ext1   = $this->digitsOnly($this->phone_number_ext);
+        $ext2   = $this->digitsOnly($this->phone_number_2_ext);
+
+        $this->email        = strtolower(trim($this->email));
+        $this->working_hours= trim($this->working_hours);
 
         $this->validate([
-            'phone_number'       => ['nullable','regex:/^[+]?[1-9][0-9]{4,19}$/'],
+            // Acepta UI con espacios/guiones/paréntesis, y además valida semántica con callback
+            'phone_number' => [
+                'nullable','string','min:5','max:30','regex:/^[0-9+()\s\.-]+$/',
+                function ($attr, $value, $fail) use ($clean1) {
+                    if ($clean1 === '') return;
+                    // válido si E.164 (+7..15), o 10 dígitos (MX/US/CA), o 1+10 (US/CA)
+                    if (!preg_match('/^\+[1-9]\d{6,14}$/', $clean1) &&
+                        !preg_match('/^\d{10}$/', $clean1) &&
+                        !preg_match('/^1\d{10}$/', $clean1)) {
+                        $fail('Teléfono inválido. Usa internacional con + o 10 dígitos (MX/US/CA) / 1+10 (US/CA).');
+                    }
+                },
+            ],
             'phone_number_ext'   => ['nullable','regex:/^\d{1,10}$/'],
-            'phone_number_2'     => ['nullable','regex:/^[+]?[1-9][0-9]{4,19}$/'],
+            'phone_number_2'     => [
+                'nullable','string','min:5','max:30','regex:/^[0-9+()\s\.-]+$/',
+                function ($attr, $value, $fail) use ($clean2) {
+                    if ($clean2 === '') return;
+                    if (!preg_match('/^\+[1-9]\d{6,14}$/', $clean2) &&
+                        !preg_match('/^\d{10}$/', $clean2) &&
+                        !preg_match('/^1\d{10}$/', $clean2)) {
+                        $fail('Teléfono alterno inválido. Usa internacional con + o 10 dígitos / 1+10.');
+                    }
+                },
+            ],
             'phone_number_2_ext' => ['nullable','regex:/^\d{1,10}$/'],
             'email'              => ['nullable','email:rfc','max:254'],
-            'working_hours'         => ['nullable','string','max:120'],
+            'working_hours'      => ['nullable','string','max:120'],
         ], [
-            'phone_number.regex'    => 'Teléfono inválido (E.164).',
-            'phone_number_2.regex'  => 'Teléfono alterno inválido (E.164).',
-            'phone_number_ext.regex'=> 'Extensión inválida (1-10 dígitos).',
-            'phone_number_2_ext.regex'=> 'Extensión inválida (1-10 dígitos).',
+            'phone_number.regex'       => 'Caracteres inválidos. Usa dígitos, +, espacios, guiones, paréntesis o puntos.',
+            'phone_number_2.regex'     => 'Caracteres inválidos. Usa dígitos, +, espacios, guiones, paréntesis o puntos.',
+            'phone_number_ext.regex'   => 'Extensión inválida (1–10 dígitos).',
+            'phone_number_2_ext.regex' => 'Extensión inválida (1–10 dígitos).',
         ]);
 
+        // Construye href (tel:) sin tocar lo visible
+        $href1 = $this->buildTelHref($clean1, $ext1);
+        $href2 = $this->buildTelHref($clean2, $ext2);
+
+        // Persistencia: guarda UI y href por separado
         $s = $this->settings();
-        $s->set('phone_number', $this->phone_number);
-        $s->set('phone_number_ext', $this->phone_number_ext);
-        $s->set('phone_number_2', $this->phone_number_2);
-        $s->set('phone_number_2_ext', $this->phone_number_2_ext);
-        $s->set('email', $this->email);
-        $s->set('working_hours', $this->working_hours);
+        $s->set('phone_number',         $display1);
+        $s->set('phone_number_ext',     $ext1);
+        $s->set('phone_number_href',    $href1);
+
+        $s->set('phone_number_2',       $display2);
+        $s->set('phone_number_2_ext',   $ext2);
+        $s->set('phone_number_2_href',  $href2);
+
+        $s->set('email',                $this->email);
+        $s->set('working_hours',        $this->working_hours);
 
         $this->dispatch('notification', target: $this->targetNotify, type: 'success', message: 'Se han guardado los cambios.');
         $this->dispatch('site-contact-info-updated', id: $this->site->id);
+    }
+
+    /** Construye tel: limpio; si hay extensión, la agrega como ;ext=123 */
+    private function buildTelHref(?string $clean, ?string $ext): string
+    {
+        $n = trim((string)$clean);
+        if ($n === '') return '';
+
+        // Si es 10 dígitos, puedes prefijar +52 (MX) o dejar local:
+        // Aquí no imponemos; usamos lo que venga (E.164 o local) según tu normalización.
+        $tel = 'tel:' . $n;
+
+        $e = trim((string)$ext);
+        if ($e !== '') {
+            // RFC3966 recomienda ;ext=, algunos discan con ,, (pausa). Dejamos ;ext=
+            $tel .= ';ext=' . $e;
+        }
+        return $tel;
     }
 
     public function resetForm(): void

@@ -62,12 +62,17 @@ final class WebsiteSettingsLoader
                     'links' => $this->read('social', 'links'),
                 ],
                 'chat' => [
-                    'default'  => $this->read('chat', 'default'),
-                    'whatsapp' => $this->read('chat', 'whatsapp'),
-                    'crisp'    => $this->read('chat', 'crisp'),
-                    'tawkto'   => $this->read('chat', 'tawkto'),
-                    'tidio'    => $this->read('chat', 'tidio'),
-                    'livechat' => $this->read('chat', 'livechat'),
+                    'default'       => $this->read('chat', 'default'),
+                    'whatsapp'      => $this->read('chat', 'whatsapp'),
+                    'crisp'         => $this->read('chat', 'crisp'),
+                    'tawkto'        => $this->read('chat', 'tawkto'),
+                    'tidio'         => $this->read('chat', 'tidio'),
+                    'livechat'      => $this->read('chat', 'livechat'),
+                    'intercom'      => $this->read('chat', 'intercom'),
+                    'chatwoot'      => $this->read('chat', 'chatwoot'),
+                    'rocketchat'    => $this->read('chat', 'rocketchat'),
+                    'papercups'     => $this->read('chat', 'papercups'),
+                    'livehelperchat'=> $this->read('chat', 'livehelperchat'),
                 ],
                 'api' => [
                     'google'  => $this->read('api', 'google'),
@@ -78,6 +83,7 @@ final class WebsiteSettingsLoader
             ];
         });
     }
+
 
     private function read(string $section, string $subgroup): array
     {

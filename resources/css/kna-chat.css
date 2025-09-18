@@ -1,0 +1,74 @@
+.kna-chat-float{
+    --kna-chat-bg: #25D366;
+    --kna-chat-bottom: 18px;
+    --kna-chat-side: 18px;
+    --kna-chat-z: 1040;
+
+    position: fixed;
+    z-index: var(--kna-chat-z);
+    bottom: calc(var(--kna-chat-bottom) + env(safe-area-inset-bottom, 0px));
+    right: var(--kna-chat-side);
+    display: inline-flex;
+    align-items: center;
+    padding: 0 16px;
+    height: 56px;
+    border-radius: 999px;
+    background: var(--kna-chat-bg);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 12px 28px rgba(0,0,0,.22), 0 8px 16px rgba(0,0,0,.12);
+    transition: transform .15s ease, box-shadow .2s ease, filter .2s ease, opacity .2s ease;
+}
+
+/* SIN GAP FANTASMA: el espacio lo aporta el label si existe */
+.kna-chat-float i{ font-size: 24px; line-height: 1; }
+.kna-chat-float__label{ margin-left: .5rem; white-space: nowrap; }
+
+.kna-chat-float:hover{
+    transform: translateY(-2px);
+    filter: saturate(1.05);
+    box-shadow: 0 16px 34px rgba(0,0,0,.26), 0 10px 20px rgba(0,0,0,.16);
+}
+.kna-chat-float:active{ transform: translateY(0); }
+
+.kna-chat-float.is-left{ left: var(--kna-chat-side); right: auto; }
+.kna-chat-float.is-right{ right: var(--kna-chat-side); left: auto; }
+
+/* Variante compacta: aplica hasta LG (<= 991.98px) para igualar al dock */
+@media (max-width: 991.98px){
+    .kna-chat-float{
+      bottom: calc(var(--kna-chat-bottom-sm, var(--kna-chat-bottom)) + env(safe-area-inset-bottom, 0px));
+      right: var(--kna-chat-side-sm, var(--kna-chat-side));
+      left: auto;
+      height: 47px;
+      padding: 0 14px;
+    }
+    .kna-chat-float.is-left{
+      left: var(--kna-chat-side-sm, var(--kna-chat-side));
+      right: auto;
+    }
+    .kna-chat-float.is-right{
+      right: var(--kna-chat-side-sm, var(--kna-chat-side));
+      left: auto;
+    }
+    .kna-chat-float i{ font-size: 22px; }
+}
+
+
+/* Pulso opcional */
+.kna-chat-float--wa::after{
+    content:""; position:absolute; inset:0; border-radius:999px;
+    box-shadow: 0 0 0 0 rgba(37,211,102,.35);
+    animation: kna-chat-pulse 2.2s ease-out infinite;
+}
+@keyframes kna-chat-pulse{
+    0%{ box-shadow: 0 0 0 0 rgba(37,211,102,.35); }
+    70%{ box-shadow: 0 0 0 18px rgba(37,211,102,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark){
+    .kna-chat-float{ box-shadow: 0 10px 24px rgba(0,0,0,.45), 0 8px 16px rgba(0,0,0,.28); }
+}

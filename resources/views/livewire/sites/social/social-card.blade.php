@@ -167,10 +167,11 @@ document.addEventListener('livewire:init', () => {
 
   const wa = document.getElementById('whatsapp_phone');
   wa?.addEventListener('blur', () => {
-    let s = cleanPhone(wa.value);
-    if (!s) return;
-    if (/^\+521\d{10}$/.test(s)) s = s.replace(/^\+521/, '+52'); // MX legado
-    // NO imponemos + ni formateamos más: solo validamos; guardas tal cual lo escribió
+    // Solo revalida (NO cambiamos el valor visible del usuario)
+    const s = cleanPhone(wa.value);
+    if (s && /^\+521\d{10}$/.test(s)) {
+        // si detectamos legado, no tocamos UI; solo re-disparamos eventos
+    }
     wa.dispatchEvent(new Event('input',  { bubbles:true }));
     wa.dispatchEvent(new Event('change', { bubbles:true }));
     wa.closest('form')?.dispatchEvent(new Event('change', { bubbles:true }));

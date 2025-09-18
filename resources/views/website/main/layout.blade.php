@@ -18,39 +18,6 @@
 @endsection
 
 @section('content')
-    @php
-    /*
-    echo " ----- social ----- ";
-    dump($_social);
-
-    echo " ----- contact ----- ";
-    dump($_contact);
-
-
-    echo " ----- seo ----- ";
-    dump($_seo);
-
-    echo " ----- layout ----- ";
-    dump($_layout);
-
-    echo " ----- brand ----- ";
-    dump($_brand);
-
-
-    echo " ----- blocks ----- "
-    dump($_blocks);
-
-    echo " ----- chat ----- ";
-    dump($_chat);
-
-    dump(config('koneko.media.favicon_sizes'))
-
-        echo " ----- img ----- ";
-        dump($_img);
-
-    */
-    @endphp
-
     @foreach ($_blocks['content'] as $contentBlock)
         @if ($contentBlock['type'] === 'blade-file')
             @include($contentBlock['path'])

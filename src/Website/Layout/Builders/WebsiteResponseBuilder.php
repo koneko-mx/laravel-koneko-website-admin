@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Koneko\KonekoWebsiteAdmin\Website\Layout\Builders;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Koneko\KonekoWebsiteAdmin\Application\Enums\Websites\{Social, WebsiteRobotsMode};
 use Koneko\KonekoWebsiteAdmin\Application\Enums\WebsiteSeoProfile\WebsiteSeoProfileMetaMode;
@@ -70,6 +71,8 @@ final class WebsiteResponseBuilder
 
         return $this->clean([
             'package'     => $package,
+            'site_id'     => $this->site->id,
+            'page_id'     => $this->content->id,
             'template'    => $layout,
             'theme_color' => $theme,
         ]);
@@ -80,9 +83,7 @@ final class WebsiteResponseBuilder
     {
         $title = $this->content ? $this->content->getEffectiveTitle($this->site) : $this->site->title;
 
-        $author = $this->pickMeta('author', $this->contentSeo?->author_mode ?? $this->siteSeo?->author_mode);
-        $copyright = $this->pickMeta('copyright', $this->contentSeo?->copyright_mode ?? $this->siteSeo?->copyright_mode);
-
+        $author  = $this->pickMeta('author', $this->contentSeo?->author_mode ?? $this->siteSeo?->author_mode);
         $locale  = $this->pickMeta('locale',  $this->contentSeo?->locale_mode  ?? $this->siteSeo?->locale_mode);
         $favicon = $this->favicon();
 
@@ -111,7 +112,6 @@ final class WebsiteResponseBuilder
             'description' => $this->content->description ?? null,
             'keywords'    => $this->content->keywords ?? [],
             'author'      => $author,
-            'copyright'   => $copyright,
             'robots'      => $robots,
             'canonical'   => $this->content->canonical_url ?? null,
             'language'    => $locale,
@@ -128,7 +128,7 @@ final class WebsiteResponseBuilder
 
         return collect(Social::cases())
             ->map(function ($case) use ($links) {
-                $value = $links[$case->value] ?? null;   // p.ej. 'whatsapp', 'facebook', ...
+                $value = $links[$case->value] ?? null;
                 if (!filled($value)) {
                     return null;
                 }
@@ -137,12 +137,16 @@ final class WebsiteResponseBuilder
                     'key'      => $case->value,
                     'url'      => $value,
                     'label'    => $case->label(),
-                    'icon_ti'  => $case->icon(),     // Tabler
-                    'icon_fa'  => method_exists($case, 'iconFA') ? $case->iconFA() : null, // si agregas FA
+                    'icon_ti'  => $case->icon(),
+                    'icon_fa'  => method_exists($case, 'iconFA') ? $case->iconFA() : null,
+                    'color'    => $case->color(),
                 ];
             })
             ->filter()
-            ->values()
+            ->mapWithKeys(function (array $row) {
+                $key = $row['key'];
+                return [$key => Arr::except($row, 'key')]; // ahora la clave es string
+            })
             ->all();
     }
 
@@ -159,12 +163,82 @@ final class WebsiteResponseBuilder
     private function chat(): array
     {
         $chat = $this->settings['chat'] ?? [];
+
         $provider = $chat['default']['chat_provider'] ?? 'none';
+        $config   = (array) ($chat[$provider] ?? []);
+
+        // Armar contexto de macros
+        $siteName   = (string) $this->site->brand_name;
+        $pageTitle  = (string) ($this->content?->getEffectiveTitle($this->site) ?? $this->site->title);
+        $pageUrl    = (string) ($this->content?->canonical_url ?? url()->current());
+
+        // WhatsApp: producir wa_url + wa_digits aplicando macros y normalizando
+        if ($provider === 'whatsapp') {
+            $rawPhone  = (string) ($config['wa_phone'] ?? '');
+            $greeting  = (string) ($config['wa_greeting'] ?? '');
+            $message   = strtr($greeting, [
+                '{site}'  => $siteName,
+                '{title}' => $pageTitle,
+                '{url}'   => $pageUrl,
+            ]);
+
+            // Normaliza a E.164 si es posible; wa.me necesita dígitos sin '+'
+            [$e164, $digits] = $this->normalizePhoneForWa($rawPhone);
+            $waUrl = $digits
+                ? ('https://wa.me/' . $digits . ($message !== '' ? ('?text=' . rawurlencode($message)) : ''))
+                : null;
+
+            $config['wa_e164']  = $e164;
+            $config['wa_digits']= $digits;
+            $config['wa_url']   = $waUrl;
+            $config['wa_message_resolved'] = $message;
+        }
+
         return $this->clean([
             'provider' => $provider,
-            'config'   => $chat[$provider] ?? [],
+            'config'   => $config,
         ]);
     }
+
+    /** Limpieza flexible: 00→+, quita separadores, corrige +521…→+52…, retorna [e164, digits] o [null,null] */
+    private function normalizePhoneForWa(?string $raw): array
+    {
+        $v = trim((string)$raw);
+        if ($v === '') return [null, null];
+
+        // 00xx → +xx
+        if (str_starts_with($v, '00')) {
+            $v = '+' . substr($v, 2);
+        }
+        // quita separadores visuales
+        $v = preg_replace('/[\s().-]+/', '', $v);
+        // asegurar un solo '+'
+        if (str_contains($v, '+')) {
+            $v = '+' . ltrim($v, '+');
+        }
+        // corrige MX legado
+        $v = preg_replace('/^\+521(\d{10})$/', '+52$1', $v);
+
+        // E.164 directo
+        if (preg_match('/^\+[1-9]\d{7,14}$/', $v)) {
+            return [$v, ltrim($v, '+')];
+        }
+
+        // 10 dígitos → asume MX +52 (ajusta si necesitas por sitio)
+        if (preg_match('/^\d{10}$/', $v)) {
+            $e164 = '+52' . $v;
+            return [$e164, '52' . $v];
+        }
+
+        // 1+10 (US/CA)
+        if (preg_match('/^1\d{10}$/', $v)) {
+            $e164 = '+' . $v;
+            return [$e164, ltrim($e164, '+')];
+        }
+
+        return [null, null];
+    }
+
 
     private function img(): array
     {
@@ -201,9 +275,12 @@ final class WebsiteResponseBuilder
 
     private function brand(): array
     {
+        $copyright = $this->pickMeta('copyright', $this->contentSeo?->copyright_mode ?? $this->siteSeo?->copyright_mode);
+
         return $this->clean([
             'name'   => $this->site->brand_name,
             'slogan' => $this->site->slogan,
+            'copyright' => $copyright,
         ]);
     }
 

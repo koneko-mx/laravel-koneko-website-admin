@@ -38,11 +38,12 @@ class WebsitesAdminController extends Controller
         }
 
         $tabEnum = WebsiteTab::tryFrom($tab) ?? WebsiteTab::General;
+        $xForwardedProto = $request->header('X-Forwarded-Proto');
 
         Breadcrumbs::extend([
             [
                 'name'   => $site->domain,
-                'link'   => route('admin.website-admin.websites.manager.site', [$site, 'general']),
+                'link'   => $xForwardedProto.'://'.$site->domain,
                 'active' => $tabEnum === WebsiteTab::General,
             ],
             [
@@ -56,12 +57,14 @@ class WebsitesAdminController extends Controller
         ]);
     }
 
-    public function pageCreate(WebsiteSite $site): ViewContract
+    public function pageCreate(Request $request, WebsiteSite $site): ViewContract
     {
+        $xForwardedProto = $request->header('X-Forwarded-Proto');
+
         Breadcrumbs::extend([
             [
                 'name'   => $site->domain,
-                'link'   => route('admin.website-admin.websites.manager.site', [$site, 'general']),
+                'link'   => $xForwardedProto.'://'.$site->domain,
             ],
             [
                 'name'   => 'Páginas',

@@ -1,0 +1,222 @@
+:root{
+    --kna-admin-accent: var(--primary, #c0781a);
+    --kna-admin-z: 2000;
+
+    /* offsets desktop */
+    --kna-admin-side: 14px;
+    --kna-admin-bottom: 14px;
+    --kna-admin-top: 14px;
+
+    /* offsets mobile */
+    --kna-admin-side-sm: 14px;
+    --kna-admin-bottom-sm: 18px;
+    --kna-admin-top-sm: 8px;
+
+    /* sizes */
+    --kna-admin-fab-size: 56px;
+    --kna-admin-gap: 10px;
+  }
+
+  /* ===== Contenedor ===== */
+  .kna-admin-dock{
+    position: fixed;
+    z-index: var(--kna-admin-z);
+    pointer-events: none; /* solo inner/fab interactúan */
+  }
+
+  /* ===== Dock pill (inner) ===== */
+  .kna-admin-dock__inner{
+    background: rgba(20,20,20,.78);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    color:#fff;
+    border-radius: 999px;
+    padding:.375rem .5rem;
+    box-shadow:0 8px 24px rgba(0,0,0,.22);
+    display: none; /* JS decide */
+    gap:.5rem;
+    align-items:center;
+    pointer-events:auto;
+    white-space: nowrap;
+  }
+
+  /* ===== FAB ===== */
+  .kna-admin-fab{
+    position: fixed;
+    width: var(--kna-admin-fab-size);
+    height: var(--kna-admin-fab-size);
+    border-radius: 999px;
+    border:0;
+    background: var(--kna-admin-accent);
+    color:#fff;
+    display: none; /* desktop: aparece con flag */
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 14px 28px rgba(0,0,0,.22), 0 10px 18px rgba(0,0,0,.18);
+    pointer-events:auto;
+    bottom: calc(var(--kna-admin-bottom) + env(safe-area-inset-bottom, 0px));
+    transition: transform .15s ease, box-shadow .2s ease, filter .2s ease, opacity .2s ease;
+    isolation: isolate; /* que ::after no tape el ícono */
+  }
+  .kna-admin-fab i{ font-size:20px; }
+
+  /* Posición lateral FAB */
+  .kna-admin-dock.is-right .kna-admin-fab{ right: var(--kna-admin-side); left: auto; }
+  .kna-admin-dock.is-left  .kna-admin-fab{ left:  var(--kna-admin-side); right: auto; }
+
+  /* Hover/active */
+  .kna-admin-fab:hover{
+    transform: translateY(-2px);
+    filter: saturate(1.05);
+    box-shadow: 0 16px 34px rgba(0,0,0,.26), 0 10px 20px rgba(0,0,0,.16);
+  }
+  .kna-admin-fab:active{ transform: translateY(0); }
+
+  /* ===== Modos de alineación ===== */
+
+  /* 1) Junto al FAB */
+  .kna-admin-dock[data-align="fab-side"] .kna-admin-dock__inner{
+    position: fixed;
+    bottom: calc(var(--kna-admin-bottom) + env(safe-area-inset-bottom, 0px));
+    max-width: calc(100vw - (var(--kna-admin-side) * 2));
+    overflow-x: auto;
+  }
+  .kna-admin-dock.is-right[data-align="fab-side"] .kna-admin-dock__inner{
+    right: calc(var(--kna-admin-side) + var(--kna-admin-fab-size) + var(--kna-admin-gap));
+  }
+  .kna-admin-dock.is-left[data-align="fab-side"] .kna-admin-dock__inner{
+    left: calc(var(--kna-admin-side) + var(--kna-admin-fab-size) + var(--kna-admin-gap));
+  }
+
+  /* 2) Topbar (debajo del header) */
+  .kna-admin-dock[data-align="topbar"] .kna-admin-dock__inner{
+    position: fixed;
+    top: var(--kna-admin-top);
+    right: var(--kna-admin-side);
+    left: auto;
+    display: none; /* JS decide */
+    max-width: calc(100vw - (var(--kna-admin-side) * 2));
+    overflow-x: auto;
+  }
+  .kna-admin-dock.is-left[data-align="topbar"] .kna-admin-dock__inner{
+    left: var(--kna-admin-side);
+    right: auto;
+  }
+  /* Mostrar FAB en desktop si el flag lo pide (incluye topbar) */
+  .kna-admin-dock[data-show-fab-desktop="1"] .kna-admin-fab{ display:inline-flex; }
+
+  /* 3) Inline (embebido) */
+  .kna-admin-dock[data-align="inline"]{
+    position: static;
+    z-index: auto;
+    pointer-events: auto;
+  }
+  .kna-admin-dock[data-align="inline"] .kna-admin-fab{ display: none !important; }
+  .kna-admin-dock[data-align="inline"] .kna-admin-dock__inner{
+    position: static;
+    display: inline-flex !important;
+  }
+
+  /* ===== Botones del dock ===== */
+  .kna-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    padding:.4rem .65rem;
+    border-radius:999px;
+    background:transparent;
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    line-height:1;
+    border:1px solid rgba(255,255,255,.18);
+    transition: transform .12s ease, background .15s ease, border-color .15s ease;
+  }
+  .kna-btn:hover{ background: rgba(255,255,255,.12); transform: translateY(-1px); }
+  .kna-btn i{ font-size:.95rem; }
+  .kna-btn__label{ font-size:.85rem; }
+  .kna-kbd{
+    font-size:.7rem;
+    padding:.1rem .35rem;
+    border:1px solid rgba(255,255,255,.35);
+    border-bottom-width:2px;
+    border-radius:.35rem;
+    background:rgba(255,255,255,.06);
+    line-height:1.1;
+  }
+
+  /* ===== Efectos: Pulso + Puente de hover ===== */
+
+  /* Pulso (opt-in con .kna-pulse) en ::after */
+  .kna-admin-fab{
+    --kna-admin-pulse-size: 18px;
+    --kna-admin-pulse-speed: 2.2s;
+    --kna-admin-pulse-rgba: var(--primary-rgba-35, rgba(192,120,26,.35));
+  }
+  .kna-admin-fab.kna-pulse::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: 0 0 0 0 var(--kna-admin-pulse-rgba);
+    animation: kna-admin-pulse var(--kna-admin-pulse-speed) ease-out infinite;
+  }
+  @keyframes kna-admin-pulse{
+    0%   { box-shadow: 0 0 0 0    var(--kna-admin-pulse-rgba); }
+    70%  { box-shadow: 0 0 0 var(--kna-admin-pulse-size) rgba(0,0,0,0); }
+    100% { box-shadow: 0 0 0 0    rgba(0,0,0,0); }
+  }
+
+  /* “Puente de hover” (no pisa el pulso) */
+  .kna-admin-dock.is-right[data-align="fab-side"] .kna-admin-fab::before,
+  .kna-admin-dock.is-left [data-align="fab-side"] .kna-admin-fab::before{
+    content:"";
+    position: absolute;
+    top: -12px; bottom: -12px;
+    width: var(--kna-admin-gap);
+    pointer-events: auto;
+    background: transparent;
+  }
+  .kna-admin-dock.is-right[data-align="fab-side"] .kna-admin-fab::before{ right:100%; }
+  .kna-admin-dock.is-left [data-align="fab-side"] .kna-admin-fab::before{ left: 100%; }
+
+  /* Respeto de preferencias y tema oscuro */
+  @media (prefers-reduced-motion: reduce){
+    .kna-admin-fab.kna-pulse::after{ animation: none; }
+  }
+  @media (prefers-color-scheme: dark){
+    .kna-admin-fab{ box-shadow: 0 10px 24px rgba(0,0,0,.45), 0 8px 16px rgba(0,0,0,.28); }
+  }
+
+  /* ===== Mobile ===== */
+  @media (max-width: 991.98px){
+    .kna-admin-fab{
+      display: inline-flex; /* indispensable en móvil */
+      bottom: calc(var(--kna-admin-bottom-sm) + env(safe-area-inset-bottom, 0px));
+    }
+    .kna-admin-dock.is-right .kna-admin-fab{ right: var(--kna-admin-side-sm); }
+    .kna-admin-dock.is-left  .kna-admin-fab{ left:  var(--kna-admin-side-sm); }
+
+    .kna-admin-dock[data-align="fab-side"] .kna-admin-dock__inner{
+      bottom: calc(var(--kna-admin-bottom-sm) + env(safe-area-inset-bottom, 0px));
+      max-width: none;
+      flex-wrap: wrap;
+      -webkit-overflow-scrolling: touch;
+    }
+    .kna-admin-dock.is-right[data-align="fab-side"] .kna-admin-dock__inner{
+      right: calc(var(--kna-admin-side-sm) + var(--kna-admin-fab-size) + var(--kna-admin-gap));
+    }
+    .kna-admin-dock.is-left[data-align="fab-side"] .kna-admin-dock__inner{
+      left: calc(var(--kna-admin-side-sm) + var(--kna-admin-fab-size) + var(--kna-admin-gap));
+    }
+
+    /* Topbar en móvil: oculto; preferimos FAB */
+    .kna-admin-dock[data-align="topbar"] .kna-admin-dock__inner{ display:none; }
+    .kna-kbd{ display:none; }
+  }
+
+  /* Print */
+  @media print{
+    .kna-admin-dock, .kna-admin-fab{ display:none !important; }
+  }

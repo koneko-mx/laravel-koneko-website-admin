@@ -73,24 +73,52 @@ final class VisibilitySecurityCard extends Component
 
     public function save() : void
     {
-        // Valida booleans por atributos; status con in: dinámico
+        // Reglas base
         $this->validate();
         $this->validate([
             'status' => [ 'required', 'string', VRule::in($this->statusValues()) ],
         ]);
 
-        // Carga fresca
-        $this->site = WebsiteSite::query()->findOrFail($this->site->id);
-        $this->site->update([
-            'www_redirect'    => $this->www_redirect,
-            'force_https'     => $this->force_https,
-            'coming_soon_content_id' => $this->coming_soon_content_id ?? null,
-            'maintenance_content_id' => $this->maintenance_content_id ?? null,
-            'status'          => WebsiteSiteStatus::from($this->status),
+        // Lista de páginas válidas (ids) para in:
+        $validPageIds = array_keys($this->pages_options);
+
+        // Valores del enum (ajusta si tu enum usa otros nombres)
+        $comingSoon  = WebsiteSiteStatus::COMING_SOON->value;
+        $maintenance = WebsiteSiteStatus::MAINTENANCE->value;
+
+        // Reglas condicionales
+        $this->validate([
+            'coming_soon_content_id' => [
+                'nullable',
+                VRule::requiredIf($this->status === $comingSoon),
+                'integer',
+                VRule::in($validPageIds),
+            ],
+            'maintenance_content_id' => [
+                'nullable',
+                VRule::requiredIf($this->status === $maintenance),
+                'integer',
+                VRule::in($validPageIds),
+            ],
+        ], [
+            // Mensajes personalizados
+            'coming_soon_content_id.required'   => 'Selecciona la página para “Próximamente”.',
+            'coming_soon_content_id.in'         => 'La página seleccionada no es válida.',
+            'maintenance_content_id.required'   => 'Selecciona la página para “Mantenimiento”.',
+            'maintenance_content_id.in'         => 'La página seleccionada no es válida.',
         ]);
 
-        // Limpiamos Cache
+        // Carga fresca y guarda
+        $this->site = WebsiteSite::query()->findOrFail($this->site->id);
+        $this->site->update([
+            'www_redirect'             => $this->www_redirect,
+            'force_https'              => $this->force_https,
+            'coming_soon_content_id'   => $this->coming_soon_content_id ?? null,
+            'maintenance_content_id'   => $this->maintenance_content_id ?? null,
+            'status'                   => WebsiteSiteStatus::from($this->status),
+        ]);
 
+        // (Opcional) Limpiar caché aquí…
 
         // Notificación
         $this->dispatch(
@@ -100,6 +128,7 @@ final class VisibilitySecurityCard extends Component
             message: 'Se han guardado los cambios en las configuraciones.'
         );
     }
+
 
     /** Valores válidos del enum para la regla in: */
     private function statusValues(): array
